@@ -374,7 +374,8 @@ var demo = function() {
     }
 
     // The canvas take the content of their previous sibling...
-    for (i = canvasNb; i > 0; i--) {
+    i = canvasNb;
+    while (i--) {
       ctxs[i].drawImage(canvas[i - 1], 0, 0, width, height);
     }
 
