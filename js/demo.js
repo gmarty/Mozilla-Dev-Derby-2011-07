@@ -151,10 +151,10 @@ var demo = function() {
             tgtLeftOffset = Math.floor(Math.random() * 2) ?
             // Rightside of the reel.
             (srcLeftOffset + (width + padding * 2) + (Math.random() *
-            (body.offsetWidth - srcLeftOffset - (width * 2 - padding * 4))))
+            (body.offsetWidth - srcLeftOffset - (width * 2 + padding * 4))))
                 + 'px' :
             // Leftside of the reel.
-            Math.random() * (srcLeftOffset - (width - padding * 2)) + 'px',
+            Math.random() * (srcLeftOffset - (width + padding * 2)) + 'px',
             tgtTopOffset = Math.random() * (body.offsetHeight - height) + 'px',
 
             frame = goog.dom.createDom('canvas', {
