@@ -23,129 +23,158 @@ goog.require('goog.events');
  * - Better not to resize window.
  */
 
-/**
- * @todo: Change "?" background according to page bkg using goog.color.highContrast().
- * @todo: CSS Lint + CSS minifier.
- * @todo: Bug on FF.
- */
+// @todo: Change "?" background according to page bkg using goog.color.highContrast().
+// @todo: CSS Lint + CSS minifier.
+// @todo: Bug on FF.
 
 var demo = function() {
-  var body = document.body || goog.dom.getElementsByTagNameAndClass('body')[0],
+  /**
+   * Page body.
+   * @type {Element}
+   */
+  var body = document.body || goog.dom.getElementsByTagNameAndClass('body')[0];
 
-      /**
-       * The video DOM element.
-       * @type {HTMLVideoElement}
-       */
-      videoEl = /** @type {HTMLVideoElement} */ (goog.dom.getElement('video')),
+  /**
+   * The video DOM element.
+   * @type {HTMLVideoElement}
+   */
+  var videoEl = /** @type {HTMLVideoElement} */ (goog.dom.getElement('video'));
 
-      /**
-       * Video tag width.
-       * @const
-       * @type {number}
-       */
-      width = 320 /*videoEl.width*/,
+  /**
+   * Video tag width.
+   * @const
+   * @type {number}
+   */
+  var width = 320 /*videoEl.width*/;
 
-      /**
-       * Video tag width.
-       * @type {number}
-       */
-      height = /** @type {number} */ (videoEl.height),
-      reelEl = goog.dom.getElement('reel'),
+  /**
+   * Video tag width.
+   * @type {number}
+   */
+  var height = /** @type {number} */ (videoEl.height);
+  
+  /**
+   * The element where the main reel elements will be added.
+   * @type {Element}
+   */
+  var reelEl = goog.dom.getElement('reel');
 
-      /**
-       * Horizontal padding of video frames.
-       * @const
-       * @type {number}
-       */
-      padding = 35,
-      canvasNb,
-      canvas = [],
-      ctxs = [],
-      interval,
+  /**
+   * Horizontal padding of video frames.
+   * @const
+   * @type {number}
+   */
+  var padding = 35;
 
-      // Videos selector
-      /**
-       * The element where the main reel elements will be added.
-       * @type {Element}
-       */
-      videosEl = goog.dom.getElement('videos'),
+  /**
+   * How many frames fit on a page.
+   * @type {number}
+   */
+  var canvasNb;
+  var canvas = [];
+  var ctxs = [];
 
-      // Page elements
-      overlayEl = goog.dom.getElement('overlay'),
+  /**
+   * The container holding the background cycling interval.
+   * @type {number}
+   */
+  var interval;
 
-      /**
-       * Whether the overlay is visible or not.
-       * @type {boolean}
-       */
-      overlayOpacity = true,
-      aboutEl = goog.dom.getElement('about'),
+  // Videos selector
+  /**
+   * The parent of video switcher.
+   * @type {Element}
+   */
+  var videosEl = goog.dom.getElement('videos');
 
-      // 1x1 pixel canvas to get the average color of the current frame
-      bkgCtx = goog.dom.createDom('canvas', {width: 1, height: 1}).getContext('2d'),
+  // Page elements
+  /**
+   * The background overlay used to cycle colors.
+   * @type {Element}
+   */
+  var overlayEl = goog.dom.getElement('overlay');
 
-      // SCD.js vars
-      scd,
+  /**
+   * Whether the overlay is visible or not.
+   * @type {boolean}
+   */
+  var overlayOpacity = true;
 
-      /**
-       * Whether the video is currently playing.
-       * @type {boolean}
-       */
-      isPlaying = false,
+  /**
+   * The '?' element.
+   * @type {Element}
+   */
+  var aboutEl = goog.dom.getElement('about');
 
-      // Misc vars
-      /** @type {number} */ i,
+  /**
+   * 1x1 pixel canvas to get the average color of the current frame.
+   * @type {CanvasRenderingContext2D}
+   */
+  var bkgCtx = goog.dom.createDom('canvas', {width: 1, height: 1}).getContext('2d');
 
-      /**
-       * Set the text of the popin.
-       * @param {string} html The new HTML content of the popin.
-       */
-      setPopinHTML = function(html) {
+  // SCD.js vars
+  var scd;
 
-        var popinEl = goog.dom.getElement('popin');
+  /**
+   * Whether the video is currently playing.
+   * @type {boolean}
+   */
+  var isPlaying = false;
 
-        goog.dom.removeChildren(popinEl);
-        popinEl.appendChild(goog.dom.htmlToDocumentFragment(html));
+  // Misc vars
+  var /** @type {number} */ i;
 
-      },
+  /**
+   * Set the text of the popin.
+   * @param {string} html The new HTML content of the popin.
+   */
+  var setPopinHTML = function(html) {
 
-      /**
-       * The background color is updated.
-       * We use an overlay because background gradient transition is not
-       * supported on Firefox.
-       */
-      changeBackground = function() {
+    var popinEl = goog.dom.getElement('popin');
 
-        bkgCtx.drawImage(videoEl, 0, 0, width, height, 0, 0, 1, 1);
+    goog.dom.removeChildren(popinEl);
+    popinEl.appendChild(goog.dom.htmlToDocumentFragment(html));
 
-        // We leave the job of computing the image average color to the canvas
-        var color = bkgCtx.getImageData(0, 0, 1, 1).data,
+  };
+
+  /**
+   * The background color is updated.
+   * We use an overlay because background gradient transition is not
+   * supported on Firefox.
+   */
+  var changeBackground = function() {
+
+    bkgCtx.drawImage(videoEl, 0, 0, width, height, 0, 0, 1, 1);
+
+    // We leave the job of computing the image average color to the canvas
+    var color = bkgCtx.getImageData(0, 0, 1, 1).data,
             rgb = 'rgb(' + [color[0], color[1], color[2]].join(',') + ')',
             element = overlayOpacity ? body : overlayEl;
 
-        // The overlay takes the new color and its opacity is inverted.
-        Modernizr._prefixes.forEach(function(prefix) {
-          element.style.backgroundImage =
-              prefix + 'linear-gradient(#fff, ' + rgb + ')';
-        });
+    // The overlay takes the new color and its opacity is inverted.
+    Modernizr._prefixes.forEach(function(prefix) {
+      element.style.backgroundImage =
+          prefix + 'linear-gradient(#fff, ' + rgb + ')';
+    });
 
-        overlayEl.style.opacity = overlayOpacity ? 1 : 0;
-        overlayOpacity = !overlayOpacity;
+    overlayEl.style.opacity = overlayOpacity ? 1 : 0;
+    overlayOpacity = !overlayOpacity;
 
-        aboutEl.style.color = rgb;
-        aboutEl.style.textShadow = '0 0 2px ' + rgb;
+    aboutEl.style.color = rgb;
+    aboutEl.style.textShadow = '0 0 2px ' + rgb;
 
-      },
+  };
 
-      /**
-       * Things to do when a scene cut is detected.
-       */
-      onSceneCut = function() {
+  /**
+   * Things to do when a scene cut is detected.
+   */
+  var onSceneCut = function() {
 
-        if (goog.DEBUG) {
-          goog.global.console['info']('scenecut');
-        }
+    if (goog.DEBUG) {
+      goog.global.console['info']('scenecut');
+    }
 
-        var srcLeftOffset = videoEl.offsetLeft,
+    var srcLeftOffset = videoEl.offsetLeft,
             srcTopOffset = 0,
 
             tgtLeftOffset = Math.floor(Math.random() * 2) ?
@@ -164,36 +193,36 @@ var demo = function() {
               style: 'left:' + srcLeftOffset + 'px;top:' + srcTopOffset
             });
 
-        frame.getContext('2d').drawImage(videoEl, 0, 0, width, height);
-        goog.dom.appendChild(body, frame);
-        goog.dom.classes.add(frame, 'animate');
+    frame.getContext('2d').drawImage(videoEl, 0, 0, width, height);
+    goog.dom.appendChild(body, frame);
+    goog.dom.classes.add(frame, 'animate');
 
-        // Add the CSS transition class.
-        setTimeout(function() {
-          var rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)',
+    // Add the CSS transition class.
+    setTimeout(function() {
+      var rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)',
               transform = Modernizr.prefixed('transform');
 
-          frame.style.left = tgtLeftOffset;
-          frame.style.top = tgtTopOffset;
-          frame.style[transform] = rotate;
-        }, 0);
+      frame.style.left = tgtLeftOffset;
+      frame.style.top = tgtTopOffset;
+      frame.style[transform] = rotate;
+    }, 0);
 
-        changeBackground();
-      },
+    changeBackground();
+  };
 
-      /**
-       * When the video stops or is paused.
-       * @param {Event} e The event triggered.
-       */
-      onStop = function(e) {
+  /**
+   * When the video stops or is paused.
+   * @param {Event} e The event triggered.
+   */
+  var onStop = function(e) {
 
-        if (goog.DEBUG) {
-          goog.global.console['info'](e.type);
-        }
+    if (goog.DEBUG) {
+      goog.global.console['info'](e.type);
+    }
 
-        clearInterval(interval);
+    clearInterval(interval);
 
-      };
+  };
 
   // Let's add a bit of i18n (very very basic).
   switch (navigator.language) {
