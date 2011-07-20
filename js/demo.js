@@ -7,6 +7,8 @@ goog.require('Scd');
 goog.require('goog.debug.Console');
 goog.require('goog.dom');
 goog.require('goog.events');
+goog.require('goog.events.EventHandler');
+goog.require('goog.events.EventTarget');
 
 /**
  * @preserve Video Demo for Mozilla's Dev Derby of July 2011
@@ -144,6 +146,9 @@ var demo = function() {
    */
   var setPopinHTML = function(html) {
 
+    /**
+     * @type {Element}
+     */
     var popinEl = goog.dom.getElement('popin');
 
     goog.dom.removeChildren(popinEl);
@@ -155,15 +160,30 @@ var demo = function() {
    * The background color is updated.
    * We use an overlay because background gradient transition is not
    * supported on Firefox.
+   * @type {Function}
    */
   var changeBackground = function() {
 
     bkgCtx.drawImage(videoEl, 0, 0, width, height, 0, 0, 1, 1);
 
-    // We leave the job of computing the image average color to the canvas
-    var color = bkgCtx.getImageData(0, 0, 1, 1).data,
-        rgb = 'rgb(' + [color[0], color[1], color[2]].join(',') + ')',
-        element = overlayOpacity ? body : overlayEl;
+    // We leave the job of computing the image average color to the canvas.
+    /**
+     * The image data holding the average color of the frame.
+     * @type {CanvasPixelArray}
+     */
+    var color = bkgCtx.getImageData(0, 0, 1, 1).data;
+
+    /**
+     * A CSS representation of the color variable.
+     * @type {string}
+     */
+    var rgb = 'rgb(' + [color[0], color[1], color[2]].join(',') + ')';
+
+    /**
+     * The element that need to have its opacity swapped.
+     * @type {Element}
+     */
+    var element = overlayOpacity ? body : overlayEl;
 
     // The overlay takes the new color and its opacity is inverted.
     Modernizr._prefixes.forEach(function(prefix) {
@@ -181,6 +201,7 @@ var demo = function() {
 
   /**
    * Things to do when a scene cut is detected.
+   * @type {Function}
    */
   var onSceneCut = function() {
 
@@ -222,10 +243,12 @@ var demo = function() {
     }, 0);
 
     changeBackground();
+
   };
 
   /**
    * When the video stops or is paused.
+   * @type {Function}
    * @param {Event} e The event triggered.
    */
   var onStop = function(e) {
