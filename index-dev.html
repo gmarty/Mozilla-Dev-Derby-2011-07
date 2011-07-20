@@ -1,0 +1,198 @@
+<!doctype>
+<html>
+<head>
+<title>Cinema demo</title>
+<meta charset="utf-8">
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  min-height: 100%;
+  overflow: hidden;
+}
+#overlay {
+  -moz-transition-property: opacity;
+  -moz-transition-duration: 3s;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 3s;
+  -o-transition-property: opacity;
+  -o-transition-duration: 3s;
+  transition-property: opacity;
+  transition-duration: 3s;
+  position: absolute;
+  height: 100%;
+  opacity: 1;
+  width: 100%;
+}
+body, #overlay {
+  background-image: -moz-linear-gradient(#fff, #888);
+  background-image: -webkit-linear-gradient(#fff, #888);
+  background-image: -o-linear-gradient(#fff, #888);
+  background-image: linear-gradient(#fff, #888);
+}
+#about {
+  -moz-transition-property: opacity, color, text-shadow;
+  -moz-transition-duration: .3s;
+  -webkit-transition-property: opacity, color, text-shadow;
+  -webkit-transition-duration: .3s;
+  -o-transition-property: opacity, color, text-shadow;
+  -o-transition-duration: .3s;
+  transition-property: opacity, color, text-shadow;
+  transition-duration: .3s;
+  background: #fff;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  bottom: 0;
+  box-shadow: 0 0 2px #fff;
+  color: #888;
+  font: bold 50px Helvetica, Arial, sans serif;
+  height: 60px;
+  margin: 30px;
+  opacity: .25;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-shadow: 0 0 2px #888;
+  width: 60px;
+  z-index: 1;
+}
+#about:hover {
+  opacity: .9;
+}
+#about:hover #popin {
+  opacity: 1;
+  visibility: visible;
+}
+#popin {
+  -moz-transition-property: opacity, visible;
+  -moz-transition-duration: .5s;
+  -webkit-transition-property: opacity, visible;
+  -webkit-transition-duration: .5s;
+  -o-transition-property: opacity, visible;
+  -o-transition-duration: .5s;
+  transition-property: opacity, visible;
+  transition-duration: .5s;
+  position: absolute;
+  bottom: 0;
+  font: normal 13px Arial, sans serif;
+  margin: 0 0 85px;
+  opacity: 0;
+  padding: 5px 15px;
+  right: 0;
+  text-align: left;
+  text-shadow: 1px 1px 0 #fff;
+  visibility: hidden;
+  width: 500px;
+}
+#popin:after {
+  content: "";
+  border-color: #ccc transparent;
+  border-style: solid;
+  border-width: 15px 15px 0;
+  bottom: -15px;
+  display: block;
+  position: absolute;
+  right: 15px;
+  width: 0;
+}
+#videos {
+  margin: 15px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+#videos li {
+  border: 1px solid #ccc;
+  float:left;
+  font: normal 13px Arial, sans serif;
+  list-style: none;
+  margin: 5px;
+  padding: 10px;
+}
+#videos li:hover {
+  background: #ccc;
+  background: -moz-linear-gradient(#ccc, #999);
+  background: -webkit-linear-gradient(#ccc, #999);
+  background: -o-linear-gradient(#ccc, #999);
+  background: linear-gradient(#ccc, #999);
+  border: 1px solid #999;
+  opacity: .95;
+}
+.box {
+  background: #ddd;
+  background: -moz-linear-gradient(#fff, #ccc);
+  background: -webkit-linear-gradient(#fff, #ccc);
+  background: -o-linear-gradient(#fff, #ccc);
+  background: linear-gradient(#fff, #ccc);
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  color: #333;
+  opacity: .9;
+}
+.movie {
+  background-color: #000;
+  background-image: -moz-linear-gradient(0, #000 1.5%, transparent 2%, transparent 7%, #000 7.5%, #000 92.5%, transparent 93%, transparent 98%, #000 98.5%), -moz-linear-gradient(#fff 50%, transparent 50%);
+  background-image: -webkit-linear-gradient(0, #000 1.5%, transparent 2%, transparent 7%, #000 7.5%, #000 92.5%, transparent 93%, transparent 98%, #000 98.5%), -webkit-linear-gradient(#fff 50%, transparent 50%);
+  background-image: -o-linear-gradient(0, #000 1.5%, transparent 2%, transparent 7%, #000 7.5%, #000 92.5%, transparent 93%, transparent 98%, #000 98.5%), -o-linear-gradient(#fff 50%, transparent 50%);
+  background-image: linear-gradient(0, #000 1.5%, transparent 2%, transparent 7%, #000 7.5%, #000 92.5%, transparent 93%, transparent 98%, #000 98.5%), linear-gradient(#fff 50%, transparent 50%);
+  -moz-background-size: 100% 20px;
+  -webkit-background-size: 100% 20px;
+  -o-background-size: 100% 20px;
+  background-size: 100% 20px;
+  box-shadow: 0 0 3px #000;
+  display: block;
+  margin: 0 auto;
+  padding: 0 35px;
+  position: relative;
+}
+.frame {
+  -moz-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  -o-transform: rotate(0);
+  transform: rotate(0);
+  border: 3px solid #000;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+}
+.animate {
+  -moz-transition-property: top, left, -moz-transform;
+  -moz-transition-duration: 5s;
+  -moz-transition-timing-function: cubic-bezier(0.5,0,0,1);
+  -webkit-transition-property: top, left, -webkit-transform;
+  -webkit-transition-duration: 5s;
+  -webkit-transition-timing-function: cubic-bezier(0.5,0,0,1);
+  -o-transition-property: top, left, -o-transform;
+  -o-transition-duration: 5s;
+  -o-transition-timing-function: cubic-bezier(0.5,0,0,1);
+  transition-property: top, left, transform;
+  transition-duration: 5s;
+  transition-timing-function: cubic-bezier(0.5,0,0,1);
+}
+</style>
+<script src="closure-library/closure/goog/base.js"></script>
+<script src="js/modernizr/modernizr.custom.js"></script>
+<script src="js/SCD.js/EventEmitter.js"></script>
+<script src="js/SCD.js/scd.js"></script>
+<script src="js/demo.js"></script>
+</head>
+<body>
+<ul id=videos>
+<li class=box data-src="video/home-trailer.webm">Home</li>
+<li class=box data-src="video/big-buck-bunny.webm">Big Buck Bunny</li>
+</ul>
+<div id=overlay></div>
+<div id=about>?
+<div id=popin class=box><p>This demo is my submission to Mozilla Dev Derby of July 2011.</p>
+<p>All the things happening on the page depend on the video.
+<p>The background color changes along the main color of the image. Each time a new scene cut is detected, a frame is extracted and placed on its side.</p>
+<p>These events create a visual experience around a movie.</p>
+</div></div>
+<video src="video/home-trailer.webm" class=movie id=video width=320 controls></video>
+<div id=reel></div>
+<script>demo()</script>
+</body>
+</html>
