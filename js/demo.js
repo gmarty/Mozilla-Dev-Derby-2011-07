@@ -301,7 +301,7 @@ var demo = function() {
     }
 
     if (!isPlaying) {
-      scd.start();
+      scd['start']();
     }
 
     isPlaying = true;
