@@ -36,7 +36,7 @@ var demo = function() {
        * The video DOM element.
        * @type {HTMLVideoElement}
        */
-      videoEl = /** @type {HTMLVideoElement} */ goog.dom.getElement('video'),
+      videoEl = /** @type {HTMLVideoElement} */ (goog.dom.getElement('video')),
 
       /**
        * Video tag width.
@@ -49,7 +49,7 @@ var demo = function() {
        * Video tag width.
        * @type {number}
        */
-      height = videoEl.height,
+      height = /** @type {number} */ (videoEl.height),
       reelEl = goog.dom.getElement('reel'),
 
       /**
@@ -268,7 +268,7 @@ var demo = function() {
 
     // We resize the video tag height to keep video file ratio.
     height = videoEl.videoHeight / videoEl.videoWidth * width;
-    videoEl.height = height;
+    videoEl.height = /** @type {string} */ (height);
 
     goog.dom.removeChildren(reelEl);
 
