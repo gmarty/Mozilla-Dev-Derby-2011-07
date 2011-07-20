@@ -52,7 +52,7 @@ var demo = function() {
    * @type {number}
    */
   var height = /** @type {number} */ (videoEl.height);
-  
+
   /**
    * The element where the main reel elements will be added.
    * @type {Element}
@@ -71,7 +71,17 @@ var demo = function() {
    * @type {number}
    */
   var canvasNb;
+
+  /**
+   * An array of all frames of the reel.
+   * @type {Array.<HTMLCanvasElement>}
+   */
   var canvas = [];
+
+  /**
+   * The same above for canvas contexts.
+   * @type {Array.<CanvasRenderingContext2D>}
+   */
   var ctxs = [];
 
   /**
@@ -113,6 +123,10 @@ var demo = function() {
   var bkgCtx = goog.dom.createDom('canvas', {width: 1, height: 1}).getContext('2d');
 
   // SCD.js vars
+  /**
+   * The scene change detector object.
+   * @type {Scd}
+   */
   var scd;
 
   /**
@@ -148,8 +162,8 @@ var demo = function() {
 
     // We leave the job of computing the image average color to the canvas
     var color = bkgCtx.getImageData(0, 0, 1, 1).data,
-            rgb = 'rgb(' + [color[0], color[1], color[2]].join(',') + ')',
-            element = overlayOpacity ? body : overlayEl;
+        rgb = 'rgb(' + [color[0], color[1], color[2]].join(',') + ')',
+        element = overlayOpacity ? body : overlayEl;
 
     // The overlay takes the new color and its opacity is inverted.
     Modernizr._prefixes.forEach(function(prefix) {
@@ -175,23 +189,23 @@ var demo = function() {
     }
 
     var srcLeftOffset = videoEl.offsetLeft,
-            srcTopOffset = 0,
+        srcTopOffset = 0,
 
-            tgtLeftOffset = Math.floor(Math.random() * 2) ?
-            // Rightside of the reel.
-            (srcLeftOffset + (width + padding * 2) + (Math.random() *
-            (body.offsetWidth - srcLeftOffset - (width * 2 + padding * 4))))
-                + 'px' :
-            // Leftside of the reel.
-            Math.random() * (srcLeftOffset - (width + padding * 2)) + 'px',
-            tgtTopOffset = Math.random() * (body.offsetHeight - height) + 'px',
+        tgtLeftOffset = Math.floor(Math.random() * 2) ?
+        // Rightside of the reel.
+        (srcLeftOffset + (width + padding * 2) + (Math.random() *
+        (body.offsetWidth - srcLeftOffset - (width * 2 + padding * 4))))
+            + 'px' :
+        // Leftside of the reel.
+        Math.random() * (srcLeftOffset - (width + padding * 2)) + 'px',
+        tgtTopOffset = Math.random() * (body.offsetHeight - height) + 'px',
 
-            frame = goog.dom.createDom('canvas', {
-              width: width,
-              height: height,
-              'class': 'movie frame',
-              style: 'left:' + srcLeftOffset + 'px;top:' + srcTopOffset
-            });
+        frame = goog.dom.createDom('canvas', {
+          width: width,
+          height: height,
+          'class': 'movie frame',
+          style: 'left:' + srcLeftOffset + 'px;top:' + srcTopOffset
+        });
 
     frame.getContext('2d').drawImage(videoEl, 0, 0, width, height);
     goog.dom.appendChild(body, frame);
@@ -200,7 +214,7 @@ var demo = function() {
     // Add the CSS transition class.
     setTimeout(function() {
       var rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)',
-              transform = Modernizr.prefixed('transform');
+          transform = Modernizr.prefixed('transform');
 
       frame.style.left = tgtLeftOffset;
       frame.style.top = tgtTopOffset;
@@ -304,12 +318,12 @@ var demo = function() {
     canvasNb = Math.ceil(goog.dom.getDocumentHeight() / height) - 1;
 
     for (i = 0; i <= canvasNb; i++) {
-      canvas[i] = goog.dom.createDom('canvas', {
+      canvas[i] = /** @type {HTMLCanvasElement} */ (goog.dom.createDom('canvas', {
         width: width,
         height: height,
         'class': 'movie'
-      });
-      ctxs[i] = canvas[i].getContext('2d');
+      }));
+      ctxs[i] = /** @type {CanvasRenderingContext2D} */ (canvas[i].getContext('2d'));
 
       goog.dom.appendChild(reelEl, canvas[i]);
     }
