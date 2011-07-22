@@ -254,7 +254,7 @@ var demo = function() {
     var frame = goog.dom.createDom('canvas', {
       width: width,
       height: height,
-      'class': 'movie frame',
+      'class': 'movie frame animate',
       style: 'left:' + srcLeftOffset + 'px;top:' + srcTopOffset
     });
 
@@ -266,7 +266,6 @@ var demo = function() {
 
     frame.getContext('2d').drawImage(videoEl, 0, 0, width, height);
     goog.dom.appendChild(body, frame);
-    goog.dom.classes.add(frame, 'animate');
 
     // Add the CSS transition class.
     // Setting timeout to 20ms as suggested by
