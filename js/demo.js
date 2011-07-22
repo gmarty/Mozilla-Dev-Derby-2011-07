@@ -226,21 +226,22 @@ var demo = function() {
           height: height,
           'class': 'movie frame',
           style: 'left:' + srcLeftOffset + 'px;top:' + srcTopOffset
-        });
+        }),
+        rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)',
+        transform = Modernizr.prefixed('transform');
 
     frame.getContext('2d').drawImage(videoEl, 0, 0, width, height);
     goog.dom.appendChild(body, frame);
     goog.dom.classes.add(frame, 'animate');
 
     // Add the CSS transition class.
+    // Setting timeout to 20ms as suggested by
+    // http://www.mikechambers.com/blog/2011/07/20/timing-issues-when-animating-with-css3-transitions/
     setTimeout(function() {
-      var rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)',
-          transform = Modernizr.prefixed('transform');
-
       frame.style.left = tgtLeftOffset;
       frame.style.top = tgtTopOffset;
       frame.style[transform] = rotate;
-    }, 0);
+    }, 20);
 
     changeBackground();
 
