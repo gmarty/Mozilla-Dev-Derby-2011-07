@@ -214,13 +214,13 @@ var demo = function() {
 
         tgtLeftOffset = Math.floor(Math.random() * 2) ?
         // Rightside of the reel.
-        (srcLeftOffset + (width + padding * 2) + (Math.random() *
-        (body.offsetWidth - srcLeftOffset - (width * 2 + padding * 4))))
-            + 'px' :
+        Math.random() * (srcLeftOffset - (width + padding * 2)) + 'px'
+        :
         // Leftside of the reel.
-        Math.random() * (srcLeftOffset - (width + padding * 2)) + 'px',
+        (srcLeftOffset + (width + padding * 2) + (Math.random() *
+        (body.offsetWidth - srcLeftOffset - (width * 2 + padding * 4)))) +
+        'px',
         tgtTopOffset = Math.random() * (body.offsetHeight - height) + 'px',
-
         frame = goog.dom.createDom('canvas', {
           width: width,
           height: height,
@@ -339,7 +339,7 @@ var demo = function() {
 
     goog.dom.removeChildren(reelEl);
 
-    canvasNb = Math.ceil(goog.dom.getDocumentHeight() / height) - 1;
+    canvasNb = Math.ceil(goog.dom.getDocumentHeight() / height) - 2;
 
     for (i = 0; i <= canvasNb; i++) {
       canvas[i] = /** @type {HTMLCanvasElement} */ (goog.dom.createDom('canvas', {
@@ -400,7 +400,7 @@ var demo = function() {
     // The canvas take the content of their previous sibling...
     i = canvasNb;
     while (i--) {
-      ctxs[i].drawImage(canvas[i - 1], 0, 0, width, height);
+      ctxs[i + 1].drawImage(canvas[i], 0, 0, width, height);
     }
 
     // ... while the first canvas takes a snapshot from the video.
