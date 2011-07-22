@@ -372,7 +372,7 @@ var demo = function() {
 
     goog.dom.removeChildren(reelEl);
 
-    canvasNb = Math.ceil(goog.dom.getDocumentHeight() / height) - 2;
+    canvasNb = Math.floor(goog.dom.getDocumentHeight() / height) - 1;
 
     for (i = 0; i <= canvasNb; i++) {
       canvas[i] = /** @type {HTMLCanvasElement} */ (goog.dom.createDom('canvas', {
