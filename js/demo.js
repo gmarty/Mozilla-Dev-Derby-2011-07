@@ -56,6 +56,20 @@ var demo = function() {
   var height = /** @type {number} */ (videoEl.height);
 
   /**
+   * Left offset of the video tag.
+   * @const
+   * @type {number}
+   */
+  var srcLeftOffset = videoEl.offsetLeft;
+
+  /**
+   * Top offset of the video tag.
+   * @const
+   * @type {number}
+   */
+  var srcTopOffset = 0;
+
+  /**
    * The element where the main reel elements will be added.
    * @type {Element}
    */
@@ -85,6 +99,12 @@ var demo = function() {
    * @type {Array.<CanvasRenderingContext2D>}
    */
   var ctxs = [];
+
+  /**
+   * CSS3 transform property.
+   * @type {string}
+   */
+  var transform = Modernizr.prefixed('transform');
 
   /**
    * The container holding the background cycling interval.
@@ -210,20 +230,6 @@ var demo = function() {
     }
 
     /**
-     * Left offset of the video tag.
-     * @const
-     * @type {number}
-     */
-    var srcLeftOffset = videoEl.offsetLeft;
-
-    /**
-     * Top offset of the video tag.
-     * @const
-     * @type {number}
-     */
-    var srcTopOffset = 0;
-
-    /**
      * Left offset of the newly created frame.
      * @type {number}
      */
@@ -257,12 +263,6 @@ var demo = function() {
      * @type {string}
      */
     var rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)';
-
-    /**
-     * CSS3 transform property.
-     * @type {string}
-     */
-    var transform = Modernizr.prefixed('transform');
 
     frame.getContext('2d').drawImage(videoEl, 0, 0, width, height);
     goog.dom.appendChild(body, frame);
