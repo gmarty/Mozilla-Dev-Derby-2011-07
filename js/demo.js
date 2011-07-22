@@ -209,26 +209,60 @@ var demo = function() {
       goog.global.console['info']('scenecut');
     }
 
-    var srcLeftOffset = videoEl.offsetLeft,
-        srcTopOffset = 0,
+    /**
+     * Left offset of the video tag.
+     * @const
+     * @type {number}
+     */
+    var srcLeftOffset = videoEl.offsetLeft;
 
-        tgtLeftOffset = Math.floor(Math.random() * 2) ?
+    /**
+     * Top offset of the video tag.
+     * @const
+     * @type {number}
+     */
+    var srcTopOffset = 0;
+
+    /**
+     * Left offset of the newly created frame.
+     * @type {number}
+     */
+    var tgtLeftOffset = Math.floor(Math.random() * 2) ?
         // Rightside of the reel.
-        Math.random() * (srcLeftOffset - (width + padding * 2)) + 'px'
+        Math.random() * (srcLeftOffset - (width + padding * 2))
         :
         // Leftside of the reel.
         (srcLeftOffset + (width + padding * 2) + (Math.random() *
-        (body.offsetWidth - srcLeftOffset - (width * 2 + padding * 4)))) +
-        'px',
-        tgtTopOffset = Math.random() * (body.offsetHeight - height) + 'px',
-        frame = goog.dom.createDom('canvas', {
-          width: width,
-          height: height,
-          'class': 'movie frame',
-          style: 'left:' + srcLeftOffset + 'px;top:' + srcTopOffset
-        }),
-        rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)',
-        transform = Modernizr.prefixed('transform');
+        (body.offsetWidth - srcLeftOffset - (width * 2 + padding * 4))));
+
+    /**
+     * Top offset of the newly created frame.
+     * @type {number}
+     */
+    var tgtTopOffset = Math.random() * (body.offsetHeight - height);
+
+    /**
+     * The new frame element.
+     * @type {Element}
+     */
+    var frame = goog.dom.createDom('canvas', {
+      width: width,
+      height: height,
+      'class': 'movie frame',
+      style: 'left:' + srcLeftOffset + 'px;top:' + srcTopOffset
+    });
+
+    /**
+     * CSS3 transform value.
+     * @type {string}
+     */
+    var rotate = 'rotate(' + ((Math.random() * 30) - 15) + 'deg)';
+
+    /**
+     * CSS3 transform property.
+     * @type {string}
+     */
+    var transform = Modernizr.prefixed('transform');
 
     frame.getContext('2d').drawImage(videoEl, 0, 0, width, height);
     goog.dom.appendChild(body, frame);
@@ -238,8 +272,8 @@ var demo = function() {
     // Setting timeout to 20ms as suggested by
     // http://www.mikechambers.com/blog/2011/07/20/timing-issues-when-animating-with-css3-transitions/
     setTimeout(function() {
-      frame.style.left = tgtLeftOffset;
-      frame.style.top = tgtTopOffset;
+      frame.style.left = tgtLeftOffset + 'px';
+      frame.style.top = tgtTopOffset + 'px';
       frame.style[transform] = rotate;
     }, 20);
 
