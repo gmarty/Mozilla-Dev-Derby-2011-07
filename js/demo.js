@@ -72,7 +72,7 @@ var demo = function() {
    * @const
    * @type {number}
    */
-  var srcTopOffset = 0;
+  var srcTopOffset = 0 /*videoEl.offsetTop*/;
 
   /**
    * The element where the main reel elements will be added.
@@ -147,7 +147,10 @@ var demo = function() {
    * 1x1 pixel canvas to get the average color of the current frame.
    * @type {CanvasRenderingContext2D}
    */
-  var bkgCtx = goog.dom.createDom('canvas', {width: 1, height: 1}).getContext('2d');
+  var bkgCtx = goog.dom.createDom('canvas', {
+    width: 1,
+    height: 1
+  }).getContext('2d');
 
   // SCD.js vars
   /**
@@ -172,6 +175,7 @@ var demo = function() {
   var setPopinHTML = function(html) {
 
     /**
+     * The JS-less popin element.
      * @type {Element}
      */
     var popinEl = goog.dom.getElement('popin');
@@ -183,7 +187,7 @@ var demo = function() {
 
   /**
    * The background color is updated.
-   * We use an overlay because background gradient transition is not
+   * We use an overlay because background gradient transition is not yet
    * supported on Firefox.
    * @type {Function}
    */
@@ -216,6 +220,7 @@ var demo = function() {
           prefix + 'linear-gradient(#fff, ' + rgb + ')';
     });
 
+    // 'Boolean(overlayOpacity)' doesn't minify as well.
     overlayEl.style.opacity = overlayOpacity ? 1 : 0;
     overlayOpacity = !overlayOpacity;
 
