@@ -39,7 +39,7 @@ Retrouvez-moi sur Twitter : [@g_marty](https://twitter.com/g_marty)
 色が動画に合わせて変わったり、各カットにフレーム1枚が取り出したりする。
 これで動画のもっと豊かなビジュアル体験が楽しめる。
 
-ソースコードはhttps://github.com/gmarty/Mozilla-Dev-Derby-2011-07からどうぞ。
+ソースコードはhttps://github.com/gmarty/Mozilla-Dev-Derby-2011-07 からどうぞ。
 
 このデモは下記のオープンソースプロジェクトの基で作られた。
 
