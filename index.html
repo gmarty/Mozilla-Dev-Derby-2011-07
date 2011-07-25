@@ -1,10 +1,11 @@
 <!doctype>
 <html>
 <head>
-<title>Cinema demo</title>
+<title>Video demo</title>
 <meta charset="utf-8">
 <style>
 html,body{height:100%;margin:0;min-height:100%;overflow:hidden}
+a{color:darkBlue}
 #overlay{-moz-transition-property:opacity;-moz-transition-duration:3s;-webkit-transition-property:opacity;-webkit-transition-duration:3s;-o-transition-property:opacity;-o-transition-duration:3s;transition-property:opacity;transition-duration:3s;position:absolute;height:100%;opacity:1;width:100%}
 body,#overlay{background-image:-moz-linear-gradient(#fff,#888);background-image:-webkit-linear-gradient(#fff,#888);background-image:-o-linear-gradient(#fff,#888);background-image:linear-gradient(#fff,#888)}
 #about{-moz-transition-property:opacity,color,text-shadow;-moz-transition-duration:.3s;-webkit-transition-property:opacity,color,text-shadow;-webkit-transition-duration:.3s;-o-transition-property:opacity,color,text-shadow;-o-transition-duration:.3s;transition-property:opacity,color,text-shadow;transition-duration:.3s;background:#fff;-moz-border-radius:30px;-webkit-border-radius:30px;border-radius:30px;bottom:0;box-shadow:0 0 2px #fff;color:#888;font:bold 50px Helvetica,Arial,sans serif;height:60px;margin:30px;opacity:.25;position:absolute;right:0;text-align:center;text-shadow:0 0 2px #888;width:60px;z-index:1}
@@ -29,10 +30,18 @@ body,#overlay{background-image:-moz-linear-gradient(#fff,#888);background-image:
 </ul>
 <div id=overlay></div>
 <div id=about>?
-<div id=popin class=box><p>This demo is my submission to Mozilla Dev Derby of July 2011.</p>
-<p>All the things happening on the page depend on the video.
-<p>The background color changes along the main color of the image. Each time a new scene cut is detected, a frame is extracted and placed on its side.</p>
-<p>These events create a visual experience around a movie.</p>
+<div id=popin class=box><p>This demo is my submission to the Mozilla Dev Derby of July 2011.<br>
+Everything that happens on the page depends on the video.<br>
+The background color changes along the main color of the current frame, and each time a new scene cut is detected, a frame is extracted from the video and moved on its side.<br>
+These events create a visual experience that enhances the movie.</p>
+<p>The code is available at <a href="https://github.com/gmarty/Mozilla-Dev-Derby-2011-07">https://github.com/gmarty/Mozilla-Dev-Derby-2011-07</a>.</p>
+<p>This demo is built using several open source projects:</p>
+<ul>
+<li><a href="https://github.com/gmarty/SCD.js">SCD.js</a>, scene cut detection in JavaScript</li>
+<li><a href="http://www.modernizr.com/">Modernizr</a> for CSS3 proprietary prefixes</li>
+<li><a href="http://code.google.com/closure/library/">Closure Library</a></li>
+</ul>
+<p>Follow me on Twitter: <a href="https://twitter.com/g_marty">@g_marty</a>.</p>
 </div></div>
 <video src="video/home-trailer.webm" class=movie id=video width=320 controls></video>
 <div id=reel></div>

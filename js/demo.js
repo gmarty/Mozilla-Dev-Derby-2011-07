@@ -11,18 +11,23 @@ goog.require('goog.events.EventHandler');
 goog.require('goog.events.EventTarget');
 
 /**
- * @preserve Video Demo for Mozilla's Dev Derby of July 2011
- * Description:
- * - Create a column of canvas elements with the video tag at top, depending on document height.
- * - When video plays, update each canvas 1s before the following (reel effect).
- * - When a scene cut is detected, extract an image from video and place it on one of the sides.
- * - Change background gradient depending on video main colors.
- * Challenges:
- * - What to do on window resize?
+ * @preserve This demo is my submission to the Mozilla Dev Derby of July 2011.
+ * Everything that happens on the page depends on the video.
+ * The background color changes along the main color of the current frame, and each time a new scene cut is detected, a frame is extracted from the video and moved on its side.
+ * These events create a visual experience that enhances the movie.
+ * 
+ * The code is available at https://github.com/gmarty/Mozilla-Dev-Derby-2011-07
+ * 
+ * This demo is built using several open source projects:
+ * - SCD.js, scene cut detection in JavaScript
+ * - Modernizr for CSS3 proprietary prefixes
+ * - Closure Library
+ * 
+ * Follow me on Twitter: @g_marty
  *
  * Notes:
  * - No IE support at all (have no way to test it).
- * - Better not to resize window.
+ * - Better not resize window.
  */
 
 // @todo: Change "?" background according to page bkg using goog.color.highContrast().
@@ -299,18 +304,34 @@ var demo = function() {
   switch (navigator.language) {
     case 'fr':
       setPopinHTML(
-          '<p>J\'ai développé cette démo pour le Mozilla Dev Derby de Juillet 2011 sur le thème de la vidéo.' +
-          '<p>Le concept est une page qui réagit au contenu d\'une vidéo.' +
-          '<p>Le fond change selon la dominance de l\'image en cours. A chaque nouvelle scène, un morceau de pellicule est extrait depuis la vidéo.' +
-          '<p>Ces différents évènements contribuent à la création d\'une expérience visuelle qui enrichisse la vidéo.'
+          '<p>J\'ai développé cette démo pour le Mozilla Dev Derby de Juillet 2011 sur le thème de la vidéo.<br>' +
+          'Le concept consiste en une page qui réagit au contenu d\'une vidéo.<br>' +
+          'Le fond change selon la couleur dominante de l\'image en cours, et un morceau de pellicule est extrait de la vidéo à chaque changement de plan.<br>' +
+          'Ces différents évènements contribuent à la création d\'une expérience visuelle qui enrichit la vidéo.' +
+          '<p>Le code est disponible sur <a href="https://github.com/gmarty/Mozilla-Dev-Derby-2011-07">https://github.com/gmarty/Mozilla-Dev-Derby-2011-07</a>.' +
+          '<p>Cette démo utilise plusieurs projets open source&nbsp;:' +
+          '<ul>' +
+          '<li><a href="https://github.com/gmarty/SCD.js">SCD.js</a>, détection de changement de scène en JavaScript' +
+          '<li><a href="http://www.modernizr.com/">Modernizr</a> pour les préfixes propriétaires du CSS3' +
+          '<li><a href="http://code.google.com/closure/library/">Closure Library</a>' +
+          '</ul>' +
+          '<p>Retrouvez-moi sur Twitter&nbsp;: <a href="https://twitter.com/g_marty">@g_marty</a>.'
       );
       break;
     case 'ja':
       setPopinHTML(
-          '<p>これは２０１１年7月のMozilla Dev Derbyコンテストのために作ったデモです。' +
-          '<p>ウェブページの中のコンテンツが動画によって変えると言うコンセプトです。' +
-          '<p>色が動画に合わせて変えたり、客カットにフレーム1枚がエクストラクトされたりします。' +
-          '<p>そう言うできごとが挿入された動画をより楽しいビジュアル体験になります。'
+          '<p>これは2011年7月のMozilla Dev Derbyコンテストのために作ったデモ。<br>' +
+          'ウェブページの中が動画によって変わるのがコンセプト。<br>' +
+          '色が動画に合わせて変わったり、各カットにフレーム1枚が取り出したりする。<br>' +
+          'これで動画のもっと豊かなビジュアル体験が楽しめる。' +
+          '<p>ソースコードは<a href="https://github.com/gmarty/Mozilla-Dev-Derby-2011-07">https://github.com/gmarty/Mozilla-Dev-Derby-2011-07</a>からどうぞ。' +
+          '<p>このデモは下記のオープンソースプロジェクトの基で作られた。' +
+          '<ul>' +
+          '<li><a href="https://github.com/gmarty/SCD.js">SCD.js</a> – JavaScriptの場面転換検出スクリプト' +
+          '<li><a href="http://www.modernizr.com/">Modernizr</a> – CSS3のベンダープリフィックス' +
+          '<li><a href="http://code.google.com/closure/library/">Closure Library</a>' +
+          '</ul>' +
+          '<p>Twitterもよろしくお願いします。<a href="https://twitter.com/g_marty">@g_marty</a>です。'
       );
       break;
   }
