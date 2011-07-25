@@ -8,6 +8,7 @@ These events create a visual experience that enhances the movie.
 The code is available at https://github.com/gmarty/Mozilla-Dev-Derby-2011-07
 
 This demo is built using several open source projects:
+
 * [SCD.js](https://github.com/gmarty/SCD.js), scene cut detection in JavaScript
 * [Modernizr](http://www.modernizr.com/) for CSS3 proprietary prefixes
 * [Closure Library](http://code.google.com/closure/library/)
@@ -24,6 +25,7 @@ Ces différents évènements contribuent à la création d'une expérience visue
 Le code est disponible sur https://github.com/gmarty/Mozilla-Dev-Derby-2011-07
 
 Cette démo utilise plusieurs projets open source :
+
 * [SCD.js](https://github.com/gmarty/SCD.js), détection de changement de scène en JavaScript
 * [Modernizr](http://www.modernizr.com/) pour les préfixes propriétaires du CSS3
 * [Closure Library](http://code.google.com/closure/library/)
@@ -40,6 +42,7 @@ Retrouvez-moi sur Twitter : [@g_marty](https://twitter.com/g_marty)
 ソースコードはhttps://github.com/gmarty/Mozilla-Dev-Derby-2011-07からどうぞ。
 
 このデモは下記のオープンソースプロジェクトの基で作られた。
+
 * [SCD.js](https://github.com/gmarty/SCD.js) – JavaScriptの場面転換検出スクリプト
 * [Modernizr](http://www.modernizr.com/) – CSS3のベンダープリフィックス
 * [Closure Library](http://code.google.com/closure/library/)
