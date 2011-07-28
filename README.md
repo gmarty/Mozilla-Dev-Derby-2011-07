@@ -34,14 +34,15 @@ Retrouvez-moi sur Twitter : [@g_marty](https://twitter.com/g_marty)
 
 -----
 
-これは2011年7月のMozilla Dev Derbyコンテストのために作ったデモ。
+このデモは2011年7月の「Mozilla Dev Derby」コンテストのために開発されたデモ。
 ウェブページの中が動画によって変わるのがコンセプト。
-色が動画に合わせて変わったり、各カットにフレーム1枚が取り出したりする。
+コンセプトはウェブページの中を動画によって変えること
+背景の色が動画に合わせて変わったり、各カットに動画からフレーム1枚を取り出したりする。
 これで動画のもっと豊かなビジュアル体験が楽しめる。
 
 ソースコードはhttps://github.com/gmarty/Mozilla-Dev-Derby-2011-07 からどうぞ。
 
-このデモは下記のオープンソースプロジェクトの基で作られた。
+このデモは下記のオープンソースプロジェクトを利用して作られた。
 
 * [SCD.js](https://github.com/gmarty/SCD.js) – JavaScriptの場面転換検出スクリプト
 * [Modernizr](http://www.modernizr.com/) – CSS3のベンダープリフィックス

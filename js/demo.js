@@ -325,12 +325,13 @@ var demo = function() {
       break;
     case 'ja':
       setPopinHTML(
-          '<p>これは2011年7月のMozilla Dev Derbyコンテストのために作ったデモ。<br>' +
+          '<p>このデモは2011年7月の「Mozilla Dev Derby」コンテストのために開発されたデモ。<br>' +
           'ウェブページの中が動画によって変わるのがコンセプト。<br>' +
-          '色が動画に合わせて変わったり、各カットにフレーム1枚が取り出したりする。<br>' +
+          'コンセプトはウェブページの中を動画によって変えること<br>' +
+          '背景の色が動画に合わせて変わったり、各カットに動画からフレーム1枚を取り出したりする。<br>' +
           'これで動画のもっと豊かなビジュアル体験が楽しめる。' +
           '<p>ソースコードは<a href=https://github.com/gmarty/Mozilla-Dev-Derby-2011-07>https://github.com/gmarty/Mozilla-Dev-Derby-2011-07</a>からどうぞ。' +
-          '<p>このデモは下記のオープンソースプロジェクトの基で作られた。' +
+          '<p>このデモは下記のオープンソースプロジェクトを利用して作られた。' +
           '<ul>' +
           '<li><a href=https://github.com/gmarty/SCD.js>SCD.js</a> – JavaScriptの場面転換検出スクリプト' +
           '<li><a href=http://www.modernizr.com/>Modernizr</a> – CSS3のベンダープリフィックス' +
