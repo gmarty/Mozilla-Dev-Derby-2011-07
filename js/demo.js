@@ -473,6 +473,8 @@ var demo = function() {
   goog.events.listen(videoEl, 'pause', onStop);
   goog.events.listen(videoEl, 'ended', onStop);
 
+  videoEl.src = 'video/home-trailer.webm';
+
 };
 
 goog.exportSymbol('demo', demo);
